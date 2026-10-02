@@ -5,70 +5,18 @@ import { useState } from "react";
 // Add, remove, or rename categories and skills here. The page updates itself.
 // Keep each skill name unique across the whole list.
 const SKILLS: Record<string, string[]> = {
-  Programming: [
-    "Python", "Java", "JavaScript", "TypeScript", "C++", "C#", "C", "Rust", "Go",
-    "SQL", "HTML/CSS", "React", "Node.js", "Git/GitHub", "Mobile App Development",
-    "API Design", "Linux/Command Line",
+ 
+  "STEM": [
+    "Agriculture", "CAD Modeling", "Chemistry", "Engineering", "Programming", "Medicine", 
   ],
-  "Data Science": [
-    "R", "Pandas", "Machine Learning", "Data Visualization", "Tableau", "Power BI",
-    "Statistics", "Excel", "Data Cleaning", "Deep Learning",
-    "Natural Language Processing", "Database Design",
+  "Arts": [
+    "Acting", "Music", "Art", "Sports"
   ],
-  "Cybersecurity & IT": [
-    "Network Security", "Penetration Testing", "Cloud (AWS/Azure)", "Networking",
-    "System Administration", "Tech Support", "Digital Forensics",
-  ],
-  "CAD & Engineering": [
-    "AutoCAD", "SolidWorks", "Fusion 360", "Revit", "3D Printing", "Circuit Design",
-    "Arduino", "Raspberry Pi", "Robotics", "MATLAB", "Soldering", "PCB Design",
-    "CNC Machining",
-  ],
-  "Theatre & Performance": [
-    "Acting", "Stage Management", "Set Design", "Lighting Design", "Sound Design",
-    "Costume Design", "Directing", "Playwriting", "Improv", "Stage Makeup", "Dance",
-    "Choreography", "Prop Handling",
-  ],
-  Music: [
-    "Singing", "Piano", "Guitar", "Music Production", "Songwriting", "Music Theory",
-    "Audio Mixing", "DJing", "Percussion",
-  ],
-  "Art & Design": [
-    "Graphic Design", "Photoshop", "Illustrator", "Figma", "UI/UX Design", "Drawing",
-    "Painting", "Photography", "Video Editing", "Animation", "3D Modeling (Blender)",
-    "Ceramics", "Typography",
-  ],
-  Games: [
-    "Unity", "Unreal Engine", "Godot", "Game Design", "Level Design", "Pixel Art",
-    "Esports", "Game Testing", "Tabletop Game Design",
-  ],
-  Business: [
-    "Accounting", "Finance", "Marketing", "Sales", "Entrepreneurship",
-    "Project Management", "Budgeting", "Investing", "Business Analytics",
-    "Supply Chain", "Human Resources", "Negotiation", "Social Media Marketing",
-    "SEO", "Event Planning",
-  ],
-  "Communication & Writing": [
-    "Public Speaking", "Creative Writing", "Technical Writing", "Journalism",
-    "Copy Editing", "Grant Writing", "Podcasting", "Debate", "Blogging",
-  ],
-  Languages: [
-    "Spanish", "French", "German", "Mandarin", "Japanese", "Korean", "Arabic",
-    "American Sign Language", "Italian", "Translation",
-  ],
-  "Science & Research": [
-    "Lab Techniques", "Research Methods", "Chemistry", "Biology", "Physics",
-    "Calculus", "Microscopy", "Scientific Writing", "Field Research",
-    "Survey Design", "Literature Review",
-  ],
-  "Health & Wellness": [
-    "First Aid/CPR", "Nutrition", "Personal Training", "Mental Health Peer Support",
-    "Patient Care", "Anatomy", "Coaching", "Yoga Instruction",
+  "Infomatics": [
+    "Human Resources", "Event Planning", "Finance", "Writing",
   ],
   "Leadership & Community": [
-    "Leadership", "Team Management", "Tutoring", "Mentoring", "Volunteering",
-    "Fundraising", "Community Outreach", "Conflict Resolution", "Teaching",
-    "Club Officer Experience",
+    "Team Management", "Volunteering", "Teaching",
   ],
 };
 
