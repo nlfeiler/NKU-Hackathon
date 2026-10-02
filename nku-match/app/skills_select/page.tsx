@@ -104,17 +104,18 @@ export default function SkillSelect() {
   return (
     <div
       className="
-        min-h-screen
+        h-screen
+        overflow-hidden
         text-zinc-800
         bg-[#f7f3e8]
         bg-[linear-gradient(to_bottom,transparent_31px,rgba(80,100,120,0.18)_32px)]
         bg-[length:100%_32px]
       "
     >
-      <main className="mx-auto flex min-h-screen max-w-5xl">
+      <main className="mx-auto flex h-full max-w-5xl">
 
         {/* Left column: category filter */}
-        <aside className="w-44 border-r border-zinc-400/50 p-3">
+        <aside className="w-44 overflow-y-auto border-r border-zinc-400/50 p-3">
           <div className="flex flex-col gap-2 pt-8">
             <h2 className="pb-2 text-center text-sm font-semibold uppercase tracking-wide">
               Filter
@@ -136,12 +137,12 @@ export default function SkillSelect() {
           </div>
         </aside>
 
-        <section className="flex flex-1 flex-col">
+        <section className="flex min-h-0 flex-1 flex-col">
           <header className="flex justify-center pt-6">
             <img src="/nku_banner.jpg" alt="NKU Banner" className="max-w-md" />
           </header>
 
-          <div className="flex-1 px-8 py-8">
+          <div className="flex min-h-0 flex-1 flex-col px-8 py-8">
 
             {/* Title row */}
             <div className="flex items-center justify-between pb-6">
@@ -161,11 +162,14 @@ export default function SkillSelect() {
               className="mb-6 w-full rounded-md border-2 border-zinc-500 bg-white/70 px-3 py-2 outline-none focus:border-[#E6B52A]"
             />
 
-            <div className="flex gap-6">
+            <div className="flex min-h-0 flex-1 gap-6">
 
-              {/* Middle column: skills to pick from */}
-              <div className="flex-1 bg-[#f7f3e8]" style={cardStyle}>
-                <div className="max-h-[32rem] space-y-6 overflow-y-auto pr-2">
+              {/* Middle column: skills to pick from (scrolls inside itself) */}
+              <div
+                className="flex min-h-0 flex-1 flex-col bg-[#f7f3e8]"
+                style={cardStyle}
+              >
+                <div className="min-h-0 flex-1 space-y-6 overflow-y-auto pr-2">
                   {visible.length === 0 && (
                     <p className="text-zinc-500">No skills match your search.</p>
                   )}
@@ -194,8 +198,11 @@ export default function SkillSelect() {
                 </div>
               </div>
 
-              {/* Right column: My Skills */}
-              <div className="w-56 self-start bg-[#f7f3e8]" style={cardStyle}>
+              {/* Right column: My Skills (also scrolls inside itself) */}
+              <div
+                className="flex max-h-full w-56 flex-col self-start bg-[#f7f3e8]"
+                style={cardStyle}
+              >
                 <div className="flex items-center justify-between pb-2">
                   <h2 className="text-lg font-semibold">
                     My Skills ({selected.length})
@@ -215,7 +222,7 @@ export default function SkillSelect() {
                     Check a box to add a skill.
                   </p>
                 ) : (
-                  <div className="max-h-[28rem] space-y-1 overflow-y-auto">
+                  <div className="min-h-0 flex-1 space-y-1 overflow-y-auto">
                     {selected.map((skill) => (
                       <label
                         key={skill}
