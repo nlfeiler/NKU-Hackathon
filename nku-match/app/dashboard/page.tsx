@@ -114,7 +114,7 @@ export default function Home() {
                   />
 
                   <h2 className="text-2xl font-semibold">
-                    LI hav aids
+                    Learn to code with us!!!!
                   </h2>
                 </div>
               </div>
