@@ -1,4 +1,9 @@
+"use client"
+import { useRouter } from "next/navigation";
+
 export default function Home() {
+  const router = useRouter();
+
   return (
     <div
       className="
@@ -10,28 +15,24 @@ export default function Home() {
       "
     >
 
-      <main className="mx-auto flex min-h-screen max-w-5xl">
-
-        <aside className="w-24 border-r border-zinc-400/50 p-3">
-          <div className="flex flex-col items-center gap-6 pt-8">
-
-            <button className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-zinc-500">
+      <main className="min-h-screen">
+        <aside className="fixed left-0 top-0 h-screen w-1/3 border-r border-zinc-400/50">
+          <div className="flex h-full flex-col">
+            <button className="flex h-1/3 w-full items-center justify-center border-b border-zinc-400/50">
               Org
             </button>
 
-            <button className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-zinc-500">
+            <button className="flex h-1/3 w-full items-center justify-center border-b border-zinc-400/50">
               Pro
             </button>
 
-            <button className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-zinc-500">
+            <button className="flex h-1/3 w-full items-center justify-center">
               Org
             </button>
-
           </div>
         </aside>
 
-
-        <section className="flex flex-1 flex-col">
+        <section className="ml-[33.333333%] flex min-h-screen flex-col">
           <header className="flex justify-center pt-6">
             <img
               src="/nku_banner.jpg"
@@ -63,9 +64,11 @@ export default function Home() {
                     <h1 className="text-2xl font-semibold">
                       IoT Club
                     </h1>
+
                     <h2 className="text-1xl font-semibold">
                       Come develop Robotics with us!
                     </h2>
+
                     <h5>
                       Requirements: Some coding knowledge
                       <br />
@@ -122,14 +125,24 @@ export default function Home() {
             </div>
           </div>
 
-          <nav className="border-t border-zinc-400/60 p-4">
-            <div className="flex justify-around">
-              <button>Home</button>
-              <button>Browse All</button>
-              <button>Quiz</button>
-            </div>
-          </nav>
+          <nav className="border-t border-zinc-400/60">
+  <div className="grid h-full grid-cols-3 divide-x-2 divide-zinc-400/60">
+    <button className="flex items-center justify-center">
+      Home
+    </button>
 
+    <button className="flex items-center justify-center">
+      Browse All
+    </button>
+
+    <button
+      className="flex items-center justify-center"
+      onClick={() => router.push("../skills_select")}
+    >
+      Quiz
+    </button>
+  </div>
+</nav>
         </section>
       </main>
     </div>
