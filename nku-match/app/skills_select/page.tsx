@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 // Add, remove, or rename categories and skills here. The page updates itself.
 // Keep each skill name unique across the whole list.
@@ -81,6 +82,8 @@ const cardStyle = {
 };
 
 export default function SkillSelect() {
+  const router = useRouter();
+
   const [category, setCategory] = useState<string>("All");
   const [search, setSearch] = useState<string>("");
   const [selected, setSelected] = useState<string[]>([]);
@@ -246,7 +249,7 @@ export default function SkillSelect() {
 
           <nav className="border-t border-zinc-400/60 p-4">
             <div className="flex justify-around">
-              <button>Home</button>
+              <button onClick={() => router.push("../dashboard")}>Home</button>
               <button>Browse All</button>
               <button>Quiz</button>
             </div>
