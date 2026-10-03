@@ -91,7 +91,6 @@ export default function SkillSelect() {
     >
       <main className="mx-auto flex h-full max-w-5xl">
 
-        {/* Left column: category filter */}
         <aside className="w-44 overflow-y-auto border-r border-zinc-400/50 p-3">
           <div className="flex flex-col gap-2 pt-8">
             <h2 className="pb-2 text-center text-sm font-semibold uppercase tracking-wide">
@@ -121,16 +120,10 @@ export default function SkillSelect() {
 
           <div className="flex min-h-0 flex-1 flex-col px-8 py-8">
 
-            {/* Title row */}
             <div className="flex items-center justify-between pb-6">
               <h1 className="text-3xl font-semibold">Skill Select</h1>
-              <button className="flex items-center gap-2 rounded-full border-2 border-zinc-500 px-3 py-1">
-                <img src="/default_user.png" height={28} width={28} alt="Account" />
-                Account
-              </button>
             </div>
 
-            {/* Search */}
             <input
               type="text"
               value={search}
@@ -141,7 +134,6 @@ export default function SkillSelect() {
 
             <div className="flex min-h-0 flex-1 gap-6">
 
-              {/* Middle column: skills to pick from (scrolls inside itself) */}
               <div
                 className="flex min-h-0 flex-1 flex-col bg-[#f7f3e8]"
                 style={cardStyle}
@@ -175,7 +167,6 @@ export default function SkillSelect() {
                 </div>
               </div>
 
-              {/* Right column: My Skills (also scrolls inside itself) */}
               <div
                 className="flex max-h-full w-56 flex-col self-start bg-[#f7f3e8]"
                 style={cardStyle}
@@ -228,11 +219,22 @@ export default function SkillSelect() {
             </div>
           </div>
 
-          <nav className="border-t border-zinc-400/60 p-4">
-            <div className="flex justify-around">
-              <button onClick={() => router.push("../dashboard")}>Home</button>
-              <button>Browse All</button>
-              <button>Quiz</button>
+          <nav className="border-t border-zinc-400/60">
+            <div className="grid h-full grid-cols-3 divide-x-2 divide-zinc-400/60">
+              <button className="flex items-center justify-center" onClick={() => router.push("../dashboard")}>
+                Home
+              </button>
+
+              <button className="flex items-center justify-center">
+                Browse All
+              </button>
+
+              <button
+                className="flex items-center justify-center"
+                onClick={() => router.push("../skills_select")}
+              >
+                Skills Select
+              </button>
             </div>
           </nav>
         </section>

@@ -58,6 +58,8 @@ export default function Home() {
 
                                     <h2>
                                         How about you add some skills and let the communications roll in?
+                                        <br/>
+                                        <a href="../skills_select" style={{color: "blue"}}> Skills Select</a>
                                     </h2>
                                 </div>
                             </div>
@@ -78,7 +80,7 @@ export default function Home() {
                                 className="flex items-center justify-center"
                                 onClick={() => router.push("../skills_select")}
                             >
-                                Quiz
+                                Skills Select
                             </button>
                         </div>
                     </nav>
