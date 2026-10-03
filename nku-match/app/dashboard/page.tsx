@@ -74,7 +74,7 @@ export default function Home() {
               .split(/\s+/)
               .filter(Boolean)
               .slice(0, 2)
-              .map((word) => word[0].toUpperCase())
+              .map((word: string) => word[0].toUpperCase())
               .join("");
 
             return {

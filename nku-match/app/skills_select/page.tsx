@@ -142,7 +142,7 @@ export default function SkillSelect() {
 
       localStorage.setItem("mySkills", JSON.stringify(selected));
 
-        localStorage.setItem("currentUser", email);
+        //localStorage.setItem("currentUser");
 
       setSaved(true);
 
