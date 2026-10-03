@@ -26,6 +26,8 @@ export type Opportunity = {
 
   url?: string;
 
+  points?: number;
+
 };
 
 export const opportunities: Opportunity[] = [
