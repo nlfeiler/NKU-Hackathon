@@ -18,7 +18,7 @@ export default function Home() {
   const [showAllOpportunities, setShowAllOpportunities] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const OPPORTUNITIES_PER_PAGE = 10;
+  const OPPORTUNITIES_PER_PAGE = 9;
 
   useEffect(() => {
     try {
@@ -213,7 +213,7 @@ export default function Home() {
 
           <div className="hidden border-t border-slate-100 p-6 lg:block">
             <div className="rounded-[24px] bg-[#172554] p-5 text-white shadow-[0_18px_45px_rgba(23,37,84,0.18)]">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#9b7000]">
                   {showAllOpportunities
                     ? "Opportunity network · Full catalog"
@@ -243,9 +243,11 @@ export default function Home() {
                   </span>
                   Show all opportunities
                 </button>
+
+
               </div>
               <p className="mt-2 text-sm font-bold leading-5">
-                {opportunities.length} live-looking examples are loaded from one editable data file.
+                {opportunities.length} live-looking  are loaded from one editable data file.
               </p>
             </div>
           </div>
