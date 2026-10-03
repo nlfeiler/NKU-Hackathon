@@ -42,8 +42,7 @@ export default function Home() {
                     </header>
 
                     <div className="flex-1 px-8 py-12">
-                        <div className="max-w-2xl space-y-12">
-
+                        <div className="space-y-12">
                             <div
                                 className="border-t border-zinc-400/60 pt-8"
                                 style={{
