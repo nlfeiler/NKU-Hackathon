@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Add, remove, or rename categories and skills here. The page updates itself.
 // Keep each skill name unique across the whole list.
@@ -32,6 +32,31 @@ export default function SkillSelect() {
   const [category, setCategory] = useState<string>("All");
   const [search, setSearch] = useState<string>("");
   const [selected, setSelected] = useState<string[]>([]);
+  const [saved, setSaved] = useState<boolean>(false);
+
+  // Load saved skills when the page opens
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("mySkills");
+      if (stored) setSelected(JSON.parse(stored));
+    } catch {
+      // nothing saved yet, or storage is unavailable
+    }
+  }, []);
+
+  // Any change to the list means there are unsaved changes
+  useEffect(() => {
+    setSaved(false);
+  }, [selected]);
+
+  const saveSkills = () => {
+    try {
+      localStorage.setItem("mySkills", JSON.stringify(selected));
+      setSaved(true);
+    } catch {
+      alert("Could not save your skills in this browser.");
+    }
+  };
 
   const toggle = (skill: string) => {
     setSelected((prev) =>
@@ -187,6 +212,13 @@ export default function SkillSelect() {
                     ))}
                   </div>
                 )}
+
+                <button
+                  onClick={saveSkills}
+                  className="mt-3 rounded-md border-2 border-[#E6B52A] bg-[#E6B52A]/40 px-3 py-1 font-semibold hover:bg-[#E6B52A]/70"
+                >
+                  {saved ? "Saved!" : "Save"}
+                </button>
               </div>
 
             </div>
