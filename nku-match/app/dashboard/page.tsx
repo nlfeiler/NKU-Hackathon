@@ -59,7 +59,7 @@ export default function Home() {
     }
   }
   //Leave event function added
- function leaveEvent(eventId: string) {
+  function leaveEvent(eventId: string) {
     const updatedEvents = events.filter((event) => event.id !== eventId);
 
     setError("");
@@ -79,9 +79,22 @@ export default function Home() {
     >
 
       <main className="min-h-screen">
-        <aside className="fixed left-0 top-0 h-screen w-1/3 overflow-y-auto border-r border-zinc-400/50">
-          <div className="flex-1 overflow-y-auto p-4">
-            {error && <p className="pb-3 text-center text-sm text-red-600">{error}</p>}
+        <aside className="fixed left-0 top-0 flex h-screen w-1/3 flex-col border-r border-zinc-400/50">
+          {/* Fixed heading */}
+          <div className="flex h-24 shrink-0 items-center justify-center border-b border-zinc-400/60">
+            <h5 className="text-4xl font-extrabold tracking-tight">
+              Events Added
+            </h5>
+          </div>
+
+          {/* Scrollable events */}
+          <div className="min-h-0 flex-1 overflow-y-auto p-4">
+            {error && (
+              <p className="pb-3 text-center text-sm text-red-600">
+                {error}
+              </p>
+            )}
+
             {events.length === 0 ? (
               <p className="text-center text-zinc-500">
                 No events added yet.
@@ -162,7 +175,7 @@ export default function Home() {
                     <h5>
                       We are looking for people who want to learn more about embedded systems and are willing to build a robot with us!
                       <br />
-                      Requirements: Some coding knowledge
+                      Skills: Programming, Python, Robotics
                       <br />
                       Time: Oct 18 @ 5:00PM in GH201
                       <br />
@@ -170,10 +183,12 @@ export default function Home() {
                         id: "iot-club",
                         title: "IoT Club",
                         description: "Come develop Robotics with us!",
-                        requirements: "Some coding knowledge",
+                        requirements: "Programming, Python, Robotics",
                         time: "Oct 18 @ 5:00PM",
                         location: "GH201"
-                      })}>
+                      })}
+                        className="mt-3 rounded-md border-2 border-zinc-500 px-3 py-1 text-sm font-semibold hover:bg-zinc-400/20"
+                      >
                         Join Here!
                       </button>
                     </h5>
@@ -209,7 +224,7 @@ export default function Home() {
                     <h5>
                       Help us make the first quantum sorting algorithm without a runtime of n log (n)!
                       <br />
-                      Requirements: Data Structures and Algorithms knowledge
+                      Skills: Programming, Data Structures & Algorithms
                       <br />
                       Time: November 1 @ 9:00AM in GH971
                       <br />
@@ -217,10 +232,12 @@ export default function Home() {
                         id: "software-engineering-club",
                         title: "Software Engineering Club",
                         description: "Program the future with us!",
-                        requirements: "Data Structures and Algorithms knowledge",
+                        requirements: "Programming, Data Structures & Algorithms",
                         time: "November 1 @ 9:00AM",
                         location: "GH971"
-                      })}>
+                      })}
+                        className="mt-3 rounded-md border-2 border-zinc-500 px-3 py-1 text-sm font-semibold hover:bg-zinc-400/20"
+                      >
                         Join Here!
                       </button>
                     </h5>
@@ -256,18 +273,20 @@ export default function Home() {
                     <h5>
                       I am looking for someone who wishes to learn more about the field of medicine and is willing to help me with my research!
                       <br />
-                      Requirements: Knowledge of biology and chemistry
+                      Skills: Biology, Chemistry
                       <br />
                       Time: October 25 @ 3:00PM in FH297
                       <br />
                       <button style={{ color: "blue" }} onClick={() => signupForEvent({
                         id: "research-assistantship",
                         title: "Research Assistantship Opportunity",
-                        description: "I am looking for someone who wishes to learn more about the field of medicine and is willing to help me with my research!",
-                        requirements: "Knowledge of biology and chemistry",
+                        description: "Research Assistant needed for Biology and Chemistry research",
+                        requirements: "Biology, Chemistry",
                         time: "October 25 @ 3:00PM",
                         location: "FH297"
-                      })}>
+                      })}
+                        className="mt-3 rounded-md border-2 border-zinc-500 px-3 py-1 text-sm font-semibold hover:bg-zinc-400/20"
+                      >
                         Join Here!
                       </button>
                     </h5>

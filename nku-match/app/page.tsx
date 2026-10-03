@@ -13,7 +13,10 @@ export default function Login() {
         alert("Username or password is blank");
       }else if(user == "test" && pass == "test"){
         router.push("./blank_dashboard")
-      }else{
+      }else if(user == "fac" && pass == "fac"){
+        router.push("./Fac_blank_dashb")
+      }
+      else{
         alert("Username or password is not proper!");
       }
   };
