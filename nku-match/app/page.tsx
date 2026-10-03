@@ -165,11 +165,6 @@ export default function Login() {
 
             <div className="relative">
               <div className="flex items-center gap-4">
-                <img
-                  src="/nku_banner.jpg"
-                  alt="NKU Banner"
-                  className="h-14 w-auto rounded-lg object-contain"
-                />
               </div>
 
               <div className="mt-16 max-w-md">
