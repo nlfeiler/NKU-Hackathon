@@ -14,11 +14,11 @@ const SKILLS: Record<string, string[]> = {
   "Arts": [
     "Acting", "Music", "Art", "Sports"
   ],
-  "Infomatics": [
-    "Human Resources", "Event Planning", "Finance", "Writing",
+  "Social": [
+    "Teaching", "Business", "Finance", "Law",
   ],
   "Leadership & Community": [
-    "Team Management", "Volunteering", "Teaching",
+    "Team Management", "Volunteering", "Human Resources",
   ],
 };
 
@@ -243,4 +243,3 @@ export default function SkillSelect() {
   );
 }
 
-//comment for the purpose of pushing

@@ -58,6 +58,14 @@ export default function Home() {
       console.error("Failed to save events:", error);
     }
   }
+  //Leave event function added
+ function leaveEvent(eventId: string) {
+    const updatedEvents = events.filter((event) => event.id !== eventId);
+
+    setError("");
+    setEvents(updatedEvents);
+    saveEvents(updatedEvents);
+  }
 
   return (
     <div
@@ -73,6 +81,7 @@ export default function Home() {
       <main className="min-h-screen">
         <aside className="fixed left-0 top-0 h-screen w-1/3 overflow-y-auto border-r border-zinc-400/50">
           <div className="flex-1 overflow-y-auto p-4">
+            {error && <p className="pb-3 text-center text-sm text-red-600">{error}</p>}
             {events.length === 0 ? (
               <p className="text-center text-zinc-500">
                 No events added yet.
@@ -99,6 +108,13 @@ export default function Home() {
                     <p className="text-sm">
                       {event.location}
                     </p>
+
+                    <button
+                      onClick={() => leaveEvent(event.id)}
+                      className="mt-3 rounded-md border-2 border-zinc-500 px-3 py-1 text-sm font-semibold hover:bg-zinc-400/20"
+                    >
+                      Leave
+                    </button>
                   </div>
                 ))}
               </div>
