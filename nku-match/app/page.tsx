@@ -8,7 +8,7 @@ type Role = "student" | "faculty";
 // Where each kind of user goes after signing in.
 // Change these if your folder names are different.
 const STUDENT_DASHBOARD = "./blank_dashboard";
-const FACULTY_DASHBOARD = "./Fac_blank_dashb";
+const FACULTY_DASHBOARD = "./opportunity_builder";
 
 // Universities in the dropdown and the email domain each one requires
 const UNIVERSITIES = [
@@ -22,7 +22,7 @@ const UNIVERSITIES = [
 // Test accounts. Replace with a real database before launch.
 const ACCOUNTS: { email: string; password: string; role: Role }[] = [
   { email: "feilern@nku.edu", password: "test1234", role: "student" },
-  { email: "faculty@nku.edu", password: "test1234", role: "faculty" },
+  { email: "faculty@nku.edu", password: "faculty", role: "faculty" },
 ];
 
 // Majors shown to students. Add or remove entries here.
