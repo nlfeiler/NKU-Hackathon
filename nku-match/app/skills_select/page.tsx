@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 // Add, remove, or rename categories and skills here. The page updates itself.
 // Keep each skill name unique across the whole list.
