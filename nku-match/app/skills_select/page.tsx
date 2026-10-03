@@ -9,13 +9,15 @@ import { useRouter } from "next/navigation";
 const SKILLS: Record<string, string[]> = {
  
   "STEM": [
-    "Agriculture", "CAD Modeling", "Chemistry", "Engineering", "Programming", "Medicine", 
+    "Agriculture", "CAD Modeling", "Chemistry", "Engineering", 
+    "Programming", "Medicine", "Biology", "Environmental Science"
   ],
   "Arts": [
-    "Acting", "Music", "Art", "Sports"
+    "Acting", "Music", "Illustrative Art", 
   ],
   "Social": [
-    "Teaching", "Business", "Finance", "Law",
+    "Teaching", "Business", "Finance", "Law", "Political Science",
+     "Psycology",
   ],
   "Leadership & Community": [
     "Team Management", "Volunteering", "Human Resources",
