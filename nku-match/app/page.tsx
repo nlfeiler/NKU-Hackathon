@@ -3,27 +3,147 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+type Role = "student" | "faculty";
+
+// Where each kind of user goes after signing in.
+// Change these if your folder names are different.
+const STUDENT_DASHBOARD = "./blank_dashboard";
+const FACULTY_DASHBOARD = "./Fac_blank_dashb";
+
+// Universities in the dropdown and the email domain each one requires
+const UNIVERSITIES = [
+  { name: "Northern Kentucky University", domain: "nku.edu" },
+  { name: "University of Kentucky", domain: "uky.edu" },
+  { name: "University of Louisville", domain: "louisville.edu" },
+  { name: "University of Cincinnati", domain: "uc.edu" },
+  { name: "Xavier University", domain: "xavier.edu" },
+];
+
+// Test accounts. Replace with a real database before launch.
+const ACCOUNTS: { email: string; password: string; role: Role }[] = [
+  { email: "feilern@nku.edu", password: "test1234", role: "student" },
+  { email: "faculty@nku.edu", password: "test1234", role: "faculty" },
+];
+
+// Majors shown to students. Add or remove entries here.
+const MAJORS = [
+  "Accounting",
+  "Applied Software Engineering",
+  "Biological Sciences",
+  "Business Administration",
+  "Chemistry",
+  "Communication Studies",
+  "Computer Information Technology",
+  "Computer Science",
+  "Criminal Justice",
+  "Cybersecurity",
+  "Data Science",
+  "Elementary Education",
+  "Engineering Technology",
+  "English",
+  "Environmental Science",
+  "Finance",
+  "History",
+  "Human Resource Management",
+  "Journalism",
+  "Marketing",
+  "Mathematics",
+  "Music",
+  "Nursing",
+  "Political Science",
+  "Psychology",
+  "Social Work",
+  "Theatre",
+  "Visual Arts",
+  "Undecided",
+  "Other",
+];
+
+// Checks email syntax and requires a .edu domain
+const EDU_EMAIL = /^[^\s@]+@([a-z0-9-]+\.)+edu$/i;
+
+const inputClass =
+  "w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-semibold text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#e6b52a] focus:bg-white focus:ring-4 focus:ring-[#f4c430]/15";
+
+const labelClass =
+  "mb-2 block text-xs font-black uppercase tracking-[0.15em] text-slate-500";
+
 export default function Login() {
   const router = useRouter();
+  const [role, setRole] = useState<Role>("student");
+  const [university, setUniversity] = useState("");
+  const [major, setMajor] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   function handleSignup() {
-    if (username === "" || password === "") {
-      setError("Please enter both your username and password.");
+    const email = username.trim().toLowerCase();
+
+    if (email === "" || password === "") {
+      setError("Please enter both your university email and password.");
       return;
     }
 
     setError("");
 
-    if (username === "test" && password === "test") {
-      router.push("./blank_dashboard");
-    } else if (username === "fac" && password === "fac") {
-      router.push("./Fac_blank_dashb");
-    } else {
-      setError("Username or password is not proper!");
+    // Test shortcuts: skip the university, major, and email checks
+    if (email === "test" && password === "test") {
+      router.push(STUDENT_DASHBOARD);
+      return;
     }
+    if (email === "fac" && password === "fac") {
+      router.push(FACULTY_DASHBOARD);
+      return;
+    }
+
+    const school = UNIVERSITIES.find((u) => u.name === university);
+    if (!school) {
+      setError("Please select your affiliated university.");
+      return;
+    }
+
+    if (role === "student" && major === "") {
+      setError("Please select your major.");
+      return;
+    }
+
+    if (!EDU_EMAIL.test(email)) {
+      setError("Please enter a valid university email ending in .edu.");
+      return;
+    }
+
+    const domain = email.split("@")[1];
+    if (domain !== school.domain && !domain.endsWith("." + school.domain)) {
+      setError(`Your email must be a ${school.name} address (@${school.domain}).`);
+      return;
+    }
+
+    const account = ACCOUNTS.find((a) => a.email === email);
+    if (!account || account.password !== password) {
+      setError("Email or password is not correct!");
+      return;
+    }
+
+    if (account.role !== role) {
+      setError(
+        `This account is registered as ${
+          account.role === "faculty" ? "a faculty member" : "a student"
+        }. Please choose that option above.`
+      );
+      return;
+    }
+
+    // Remember the student's major so other pages can use it
+    if (role === "student") {
+      try {
+        localStorage.setItem("myMajor", major);
+      } catch {
+        // storage unavailable; sign in anyway
+      }
+    }
+
+    router.push(role === "faculty" ? FACULTY_DASHBOARD : STUDENT_DASHBOARD);
   }
 
   return (
@@ -127,12 +247,83 @@ export default function Login() {
                   handleSignup();
                 }}
               >
+                {/* Student or faculty */}
                 <div>
-                  <label
-                    htmlFor="username"
-                    className="mb-2 block text-xs font-black uppercase tracking-[0.15em] text-slate-500"
+                  <span className={labelClass}>I am a</span>
+                  <div className="grid grid-cols-2 gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-1.5">
+                    {(["student", "faculty"] as Role[]).map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        aria-pressed={role === option}
+                        onClick={() => {
+                          setRole(option);
+                          setError("");
+                        }}
+                        className={`rounded-xl px-4 py-3 text-sm font-black transition focus:outline-none focus:ring-4 focus:ring-[#f4c430]/30 ${
+                          role === option
+                            ? "bg-[#172554] text-white shadow"
+                            : "text-slate-500 hover:bg-white"
+                        }`}
+                      >
+                        {option === "student" ? "Student" : "Faculty"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* University */}
+                <div>
+                  <label htmlFor="university" className={labelClass}>
+                    University
+                  </label>
+                  <select
+                    id="university"
+                    value={university}
+                    onChange={(event) => {
+                      setUniversity(event.target.value);
+                      setError("");
+                    }}
+                    className={inputClass}
                   >
-                    Username
+                    <option value="">Select your university</option>
+                    {UNIVERSITIES.map((u) => (
+                      <option key={u.name} value={u.name}>
+                        {u.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Major (students only) */}
+                {role === "student" && (
+                  <div>
+                    <label htmlFor="major" className={labelClass}>
+                      Major
+                    </label>
+                    <select
+                      id="major"
+                      value={major}
+                      onChange={(event) => {
+                        setMajor(event.target.value);
+                        setError("");
+                      }}
+                      className={inputClass}
+                    >
+                      <option value="">Select your major</option>
+                      {MAJORS.map((m) => (
+                        <option key={m} value={m}>
+                          {m}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {/* Email */}
+                <div>
+                  <label htmlFor="username" className={labelClass}>
+                    University email
                   </label>
                   <input
                     type="text"
@@ -142,17 +333,15 @@ export default function Login() {
                       setUsername(event.target.value);
                       setError("");
                     }}
-                    placeholder="Enter your username"
+                    placeholder="you@nku.edu"
                     autoComplete="username"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-semibold text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#e6b52a] focus:bg-white focus:ring-4 focus:ring-[#f4c430]/15"
+                    className={inputClass}
                   />
                 </div>
 
+                {/* Password */}
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="mb-2 block text-xs font-black uppercase tracking-[0.15em] text-slate-500"
-                  >
+                  <label htmlFor="password" className={labelClass}>
                     Password
                   </label>
                   <input
@@ -165,7 +354,7 @@ export default function Login() {
                     }}
                     placeholder="Enter your password"
                     autoComplete="current-password"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-semibold text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#e6b52a] focus:bg-white focus:ring-4 focus:ring-[#f4c430]/15"
+                    className={inputClass}
                   />
                 </div>
 
