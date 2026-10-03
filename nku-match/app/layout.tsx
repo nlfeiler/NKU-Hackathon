@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NKU Match",
-  description: "Match with your best fit communities using NKU Match!",
+  title: "MatchU",
+  description: "Match with your best fit communities using MatchU!",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
