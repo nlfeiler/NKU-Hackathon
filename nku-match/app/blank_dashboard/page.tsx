@@ -16,19 +16,11 @@ export default function Home() {
         >
 
             <main className="min-h-screen">
-                <aside className="fixed left-0 top-0 h-screen w-1/3 border-r border-zinc-400/50">
-                    <div className="flex h-full flex-col">
-                        <button className="flex h-1/3 w-full items-center justify-center border-b border-zinc-400/50">
-                            Org
-                        </button>
-
-                        <button className="flex h-1/3 w-full items-center justify-center border-b border-zinc-400/50">
-                            Pro
-                        </button>
-
-                        <button className="flex h-1/3 w-full items-center justify-center">
-                            Org
-                        </button>
+                <aside className="fixed left-0 top-0 h-screen w-1/3 overflow-y-auto border-r border-zinc-400/50">
+                    <div className="flex-1 overflow-y-auto p-4">
+                        <p className="text-center text-zinc-500">
+                            No events added yet.
+                        </p>
                     </div>
                 </aside>
 
@@ -53,11 +45,13 @@ export default function Home() {
                             >
                                 <div className="items-center gap-4">
                                     <h1 className="text-2xl font-semibold">
-                                        Nothing...yet! 
+                                        Nothing...yet!
                                     </h1>
 
                                     <h2>
                                         How about you add some skills and let the communications roll in?
+                                        <br />
+                                        <a href="../skills_select" style={{ color: "blue" }}> Skills Select</a>
                                     </h2>
                                 </div>
                             </div>
@@ -78,12 +72,12 @@ export default function Home() {
                                 className="flex items-center justify-center"
                                 onClick={() => router.push("../skills_select")}
                             >
-                                Quiz
+                                Skills Select
                             </button>
                         </div>
                     </nav>
                 </section>
             </main>
-        </div>
+        </div >
     );
 }
