@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import opportunities, { type Opportunity } from "./opportunities";
+import baseOpportunities, { type Opportunity } from "./opportunities";
 
 const categoryOrder = ["All", "STEM", "Arts", "Social", "Leadership & Community"];
 
@@ -15,12 +15,36 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [savedIds, setSavedIds] = useState<string[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [customOpportunities, setCustomOpportunities] = useState<Opportunity[]>([]);
   const [showAllOpportunities, setShowAllOpportunities] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   const OPPORTUNITIES_PER_PAGE = 9;
 
+  // Faculty-created opportunities first, then the pre-made ones
+  const opportunities = useMemo(
+    () => [...customOpportunities, ...baseOpportunities],
+    [customOpportunities]
+  );
+
   useEffect(() => {
+    // Opportunities created by faculty in the opportunity builder
+    try {
+      const storedCustom = JSON.parse(
+        localStorage.getItem("customOpportunities") || "[]"
+      );
+      setCustomOpportunities(
+        Array.isArray(storedCustom)
+          ? storedCustom.filter(
+              (item: Opportunity) =>
+                item && typeof item.id === "string" && typeof item.title === "string"
+            )
+          : []
+      );
+    } catch {
+      setCustomOpportunities([]);
+    }
+
     try {
       const storedEvents = JSON.parse(localStorage.getItem("myEvents") || "[]");
       const ids = Array.isArray(storedEvents)
@@ -70,7 +94,7 @@ export default function Home() {
 
       return matchesCategory && (!query || haystack.includes(query));
     });
-  }, [search, selectedCategory, selectedSkills, showAllOpportunities]);
+  }, [opportunities, search, selectedCategory, selectedSkills, showAllOpportunities]);
 
   const totalPages = Math.max(
     1,
@@ -96,7 +120,7 @@ export default function Home() {
 
   const savedOpportunities = useMemo(
     () => opportunities.filter((event) => savedIds.includes(event.id)),
-    [savedIds]
+    [opportunities, savedIds]
   );
 
   const uniqueSkills = new Set(opportunities.map((event) => event.skill)).size;
@@ -117,8 +141,9 @@ export default function Home() {
     }
   };
 
-  const openOpportunity = (_event: Opportunity) => {
-    window.open(OPPORTUNITY_DESTINATION, "_blank", "noopener,noreferrer");
+  // Opens the opportunity's own link if it has one, otherwise the NKU page
+  const openOpportunity = (event: Opportunity) => {
+    window.open(event.url || OPPORTUNITY_DESTINATION, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -472,8 +497,8 @@ export default function Home() {
 
                       <button
                         onClick={() => openOpportunity(event)}
-                        title="Open NKU Center for Student Engagement"
-                        aria-label={`Open NKU Center for Student Engagement for ${event.title}`}
+                        title={event.url ? "Open opportunity link" : "Open NKU Center for Student Engagement"}
+                        aria-label={`Open link for ${event.title}`}
                         className="grid w-12 place-items-center rounded-2xl border border-slate-200 bg-white text-sm text-slate-700 transition hover:border-[#e6b52a] hover:bg-[#fff8df] hover:text-[#172554]"
                       >
                         ↗
